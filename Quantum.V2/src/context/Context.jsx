@@ -15,8 +15,10 @@ import run from '../Config/gemini';
 
       setTimeout(function(){
         setResultData(prev=>prev+nextWord);
-      },75*index)
+      },68*index)
     }
+
+    
 
     const newChat = ()=>{
         setLoading(false);

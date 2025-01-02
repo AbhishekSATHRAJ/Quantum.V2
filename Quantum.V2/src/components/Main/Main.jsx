@@ -1,14 +1,18 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext ,useEffect } from "react";
 import { auth } from "../../server/firebase"; // Ensure Firebase is configured properly
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendEmailVerification,
-  signOut,
+  signOut, onAuthStateChanged,updateProfile
 } from "firebase/auth";
 import { Context } from "../../context/Context";
 import "./Main.css";
 import { assets } from "../../assets/assets";
+
+
+
+
 
 
 const MainUser = () => {
@@ -31,10 +35,104 @@ const MainUser = () => {
   const [error, setError] = useState("");
   const [showUserAuth, setShowUserAuth] = useState(false);
   const [userIcon, setUserIcon] = useState(assets.user_icon); // Dynamic user icon
+  const [selectedImage,setSelectedImage]= useState(null);
+
+
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser({
+          email: currentUser.email,
+          displayName: currentUser.displayName,
+          photoURL: currentUser.photoURL,
+        });
+        setUserIcon(currentUser.photoURL || assets.user_icon);
+        logActivity("User Signed in")
+      } else {
+        setUser(null);
+        setUserIcon(assets.user_icon);
+      }
+    });
+  
+    return () => unsubscribe(); // Cleanup subscription
+  }, []);
+
+ 
+
+
+  const handleImageSelection= async (event)=>{
+    const files = event.target.files;
+    if(files && files.length>0){
+      const file = files[0];
+      
+      const imageUrl=URL.createObjectURL(file)
+      setSelectedImage(imageUrl);
+      setInput(file.name);
+      onSent(file.name);
+    return()=>URL.revokeObjectURL(imageUrl);
+  }else{
+    setSelectedImage(null);
+  }
+  }
+  const handleImageIconClick = () => {
+    document.getElementById("file-input").click(); 
+  };
+
+
+ 
+  const updateUserProfile = async () => {
+    setError("");
+    if (!auth.currentUser) {
+      setError("No user is signed in.");
+      return;
+    }
+
+    try {
+      await updateProfile(auth.currentUser, {
+        displayName: username,
+        photoURL: selectedImage || userIcon,
+      });
+      setUser((prev) => ({
+        ...prev,
+        displayName: username,
+        photoURL: selectedImage || userIcon,
+      }));
+      setUserIcon(selectedImage || userIcon);
+      alert("Profile updated successfully!");
+    } catch (err) {
+      setError(err.message || "Failed to update profile.");
+    }
+  };
+
+
+
+
+
+  
+
+
+
+
+
+
 
   // Validate email format
   const validateEmail = (email) =>
-    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   // Register function
   const register = async () => {
@@ -82,8 +180,8 @@ const MainUser = () => {
         setUser(null);
         setUserIcon(assets.user_icon); // Default icon
       } else {
-        setUser({ email: loggedInUser.email, displayName: username });
-        setUserIcon(assets.logged_in_user_icon); // Update to logged-in icon
+        setUser({ email: loggedInUser.email, displayName: username , photoURL: loggedInUser.photoURL });
+        setUserIcon( loggedInUser.photoURL || assets.user_icon ); // Update to logged-in icon
         alert("Signed in successfully!");
         setShowUserAuth(false); // Navigate to main view
       }
@@ -124,6 +222,7 @@ const MainUser = () => {
   // Toggle user authentication UI
   const toggleUserAuth = () => {
     setShowUserAuth(!showUserAuth);
+    setError("");
   };
 
   return (
@@ -146,7 +245,7 @@ const MainUser = () => {
                 type="email"
                 placeholder="Email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value.trim())}
               />
               <input
                 type="password"
@@ -164,6 +263,9 @@ const MainUser = () => {
           ) : (
             <div className="welcome">
               <h2>Welcome, {user.displayName || user.email}</h2>
+              <div>
+                <button onClick={updateUserProfile}>Update Profile</button>
+              </div>
               {!user.emailVerified && (
                 <button onClick={resendVerificationEmail}>
                   Resend Verification Email
@@ -181,10 +283,14 @@ const MainUser = () => {
           <div className="nav">
             <p>Quantum.V2</p>
             <img
-              src={userIcon} // Dynamic icon source
+              src={user? user.photoURL || userIcon:assets.user_icon} 
               alt="User_Icon"
               onClick={toggleUserAuth}
+              onError={(e)=>{
+                e.target.src = assets.user_icon;
+              }}
             />
+           
           </div>
           <div className="main-container">
             {!showResult ? (
@@ -198,21 +304,21 @@ const MainUser = () => {
                   <p>How can I help today?</p>
                 </div>
                 <div className="cards">
-                  <div className="card">
+                  <div className="card" onClick={() => onSent("Suggest beautiful places to see on an upcoming road trip")}>
                     <p>Suggest beautiful places to see on an upcoming road trip</p>
                     <img src={assets.compass_icon} alt="" />
                   </div>
-                  <div className="card">
+                  <div className="card" onClick={() => onSent("Briefly summarize this concept: urban planning")}>
                     <p>Briefly summarize this concept: urban planning</p>
                     <img src={assets.bulb_icon} alt="" />
                   </div>
-                  <div className="card">
+                  <div className="card" onClick={() => onSent("Brainstorm team bonding activities for our work retreat")}>
                     <p>Brainstorm team bonding activities for our work retreat</p>
                     <img src={assets.message_icon} alt="" />
                   </div>
-                  <div className="card">
+                  <div className="card" onClick={() => onSent("Improve the readability of the following code")}>
                     <p>Improve the readability of the following code</p>
-                    <img src={assets.code_icon} alt="" />
+                    <img src={assets.code_icon} alt="Code_Icon" />
                   </div>
                 </div>
               </>
@@ -245,7 +351,14 @@ const MainUser = () => {
                   placeholder="Enter a prompt here..."
                 />
                 <div>
-                  <img  onClick={() => onSent()}  src={assets.gallery_icon} alt="" />
+                  <img  onClick={handleImageIconClick}  src={assets.gallery_icon} alt="" />
+                  <input
+            id="file-input"
+            type="file"
+            accept="image/*"
+            style={{ display: 'none' }}
+            onChange={handleImageSelection}
+          />
                   <img src={assets.mic_icon} alt="" />
                   {input ? (
                     <img onClick={() => onSent()} src={assets.send_icon} alt="" />
@@ -256,6 +369,7 @@ const MainUser = () => {
                 Quantum.V2 may display inaccurate info, including about people,
                 so double-check its responses. Your privacy and Quantum.V2
               </p>
+              
             </div>
           </div>
         </div>
