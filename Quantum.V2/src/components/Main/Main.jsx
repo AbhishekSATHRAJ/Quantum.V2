@@ -1,19 +1,17 @@
-import React, { useState, useContext ,useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { auth } from "../../server/firebase"; // Ensure Firebase is configured properly
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendEmailVerification,
-  signOut, onAuthStateChanged,updateProfile
+  signOut,
+  onAuthStateChanged,
+  updateProfile,
 } from "firebase/auth";
 import { Context } from "../../context/Context";
 import "./Main.css";
 import { assets } from "../../assets/assets";
-
-
-
-
-
+import e from "cors";
 
 const MainUser = () => {
   const {
@@ -35,22 +33,7 @@ const MainUser = () => {
   const [error, setError] = useState("");
   const [showUserAuth, setShowUserAuth] = useState(false);
   const [userIcon, setUserIcon] = useState(assets.user_icon); // Dynamic user icon
-  const [selectedImage,setSelectedImage]= useState(null);
-
-
-
-
-
-  
-
-
-  
-  
-
-
-
-
-
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -61,39 +44,34 @@ const MainUser = () => {
           photoURL: currentUser.photoURL,
         });
         setUserIcon(currentUser.photoURL || assets.user_icon);
-        logActivity("User Signed in")
+        logActivity("User Signed in");
       } else {
         setUser(null);
         setUserIcon(assets.user_icon);
       }
     });
-  
+
     return () => unsubscribe(); // Cleanup subscription
   }, []);
 
- 
-
-
-  const handleImageSelection= async (event)=>{
+  const handleImageSelection = async (event) => {
     const files = event.target.files;
-    if(files && files.length>0){
+    if (files && files.length > 0) {
       const file = files[0];
-      
-      const imageUrl=URL.createObjectURL(file)
+
+      const imageUrl = URL.createObjectURL(file);
       setSelectedImage(imageUrl);
       setInput(file.name);
       onSent(file.name);
-    return()=>URL.revokeObjectURL(imageUrl);
-  }else{
-    setSelectedImage(null);
-  }
-  }
+      return () => URL.revokeObjectURL(imageUrl);
+    } else {
+      setSelectedImage(null);
+    }
+  };
   const handleImageIconClick = () => {
-    document.getElementById("file-input").click(); 
+    document.getElementById("file-input").click();
   };
 
-
- 
   const updateUserProfile = async () => {
     setError("");
     if (!auth.currentUser) {
@@ -118,21 +96,8 @@ const MainUser = () => {
     }
   };
 
-
-
-
-
-  
-
-
-
-
-
-
-
   // Validate email format
-  const validateEmail = (email) =>
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   // Register function
   const register = async () => {
@@ -146,7 +111,11 @@ const MainUser = () => {
     }
 
     try {
-      const newUser = await createUserWithEmailAndPassword(auth, email, password);
+      const newUser = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       await sendEmailVerification(newUser.user);
       alert("Verification email sent! Please check your inbox.");
       setEmail("");
@@ -171,7 +140,11 @@ const MainUser = () => {
     }
 
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const loggedInUser = userCredential.user;
 
       if (!loggedInUser.emailVerified) {
@@ -180,8 +153,12 @@ const MainUser = () => {
         setUser(null);
         setUserIcon(assets.user_icon); // Default icon
       } else {
-        setUser({ email: loggedInUser.email, displayName: username , photoURL: loggedInUser.photoURL });
-        setUserIcon( loggedInUser.photoURL || assets.user_icon ); // Update to logged-in icon
+        setUser({
+          email: loggedInUser.email,
+          displayName: username,
+          photoURL: loggedInUser.photoURL,
+        });
+        setUserIcon(loggedInUser.photoURL || assets.user_icon); // Update to logged-in icon
         alert("Signed in successfully!");
         setShowUserAuth(false); // Navigate to main view
       }
@@ -283,14 +260,14 @@ const MainUser = () => {
           <div className="nav">
             <p>Quantum.V2</p>
             <img
-              src={user? user.photoURL || userIcon:assets.user_icon} 
+              src={user ? user.photoURL || userIcon : assets.user_icon}
               alt="User_Icon"
+              title="User_Icon"
               onClick={toggleUserAuth}
-              onError={(e)=>{
+              onError={(e) => {
                 e.target.src = assets.user_icon;
               }}
             />
-           
           </div>
           <div className="main-container">
             {!showResult ? (
@@ -304,19 +281,47 @@ const MainUser = () => {
                   <p>How can I help today?</p>
                 </div>
                 <div className="cards">
-                  <div className="card" onClick={() => onSent("Suggest beautiful places to see on an upcoming road trip")}>
-                    <p>Suggest beautiful places to see on an upcoming road trip</p>
+                  <div
+                    className="card"
+                    onClick={() =>
+                      onSent(
+                        "Suggest beautiful places to see on an upcoming road trip"
+                      )
+                    }
+                  >
+                    <p>
+                      Suggest beautiful places to see on an upcoming road trip
+                    </p>
                     <img src={assets.compass_icon} alt="" />
                   </div>
-                  <div className="card" onClick={() => onSent("Briefly summarize this concept: urban planning")}>
+                  <div
+                    className="card"
+                    onClick={() =>
+                      onSent("Briefly summarize this concept: urban planning")
+                    }
+                  >
                     <p>Briefly summarize this concept: urban planning</p>
                     <img src={assets.bulb_icon} alt="" />
                   </div>
-                  <div className="card" onClick={() => onSent("Brainstorm team bonding activities for our work retreat")}>
-                    <p>Brainstorm team bonding activities for our work retreat</p>
+                  <div
+                    className="card"
+                    onClick={() =>
+                      onSent(
+                        "Brainstorm team bonding activities for our work retreat"
+                      )
+                    }
+                  >
+                    <p>
+                      Brainstorm team bonding activities for our work retreat
+                    </p>
                     <img src={assets.message_icon} alt="" />
                   </div>
-                  <div className="card" onClick={() => onSent("Improve the readability of the following code")}>
+                  <div
+                    className="card"
+                    onClick={() =>
+                      onSent("Improve the readability of the following code")
+                    }
+                  >
                     <p>Improve the readability of the following code</p>
                     <img src={assets.code_icon} alt="Code_Icon" />
                   </div>
@@ -325,11 +330,19 @@ const MainUser = () => {
             ) : (
               <div className="result">
                 <div className="result-title">
-                  <img src={assets.user_icon} alt="" />
+                  <img
+                    src={assets.user_icon}
+                    alt="user_icon"
+                    title="user_icon"
+                  />
                   <p>{recentPrompt}</p>
                 </div>
                 <div className="result-data">
-                  <img src={assets.gemini_icon} alt="" />
+                  <img
+                    src={assets.gemini_icon}
+                    alt="Quantum.V2"
+                    title="Quantum.V2"
+                  />
                   {contextLoading ? (
                     <div className="loader">
                       <hr />
@@ -348,20 +361,33 @@ const MainUser = () => {
                   onChange={(e) => setInput(e.target.value)}
                   value={input}
                   type="text"
+                  onKeyDown={(e)=>{if(e.key==="Enter"){
+                    onSent();
+                  }}}
                   placeholder="Enter a prompt here..."
                 />
                 <div>
-                  <img  onClick={handleImageIconClick}  src={assets.gallery_icon} alt="" />
+                  <img
+                    onClick={handleImageIconClick}
+                    src={assets.gallery_icon}
+                    alt="Gallery_icon"
+                    title="Gallery_icon"
+                  />
                   <input
-            id="file-input"
-            type="file"
-            accept="image/*"
-            style={{ display: 'none' }}
-            onChange={handleImageSelection}
-          />
-                  <img src={assets.mic_icon} alt="" />
+                    id="file-input"
+                    type="file"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    onChange={handleImageSelection}
+                  />
+                  <img src={assets.mic_icon} alt="Mic_icon" title="Mic_icon" />
                   {input ? (
-                    <img onClick={() => onSent()} src={assets.send_icon} alt="" />
+                    <img
+                      onClick={() => onSent()}
+                      src={assets.send_icon}
+                      alt="Send_Icon"
+                      title="Send_Icon"
+                    />
                   ) : null}
                 </div>
               </div>
@@ -369,7 +395,6 @@ const MainUser = () => {
                 Quantum.V2 may display inaccurate info, including about people,
                 so double-check its responses. Your privacy and Quantum.V2
               </p>
-              
             </div>
           </div>
         </div>

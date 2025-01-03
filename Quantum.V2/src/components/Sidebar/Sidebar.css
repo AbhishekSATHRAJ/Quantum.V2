@@ -1,4 +1,3 @@
-/* Sidebar Container */
 .sidebar {
   min-height: 100vh;
   display: inline-flex;
@@ -7,20 +6,15 @@
   background-color: #f0f0f0;
   padding: 25px 15px;
   transition: background-color 0.3s ease, color 0.3s ease;
-  
 }
 .sidebar img {
   width: 20px;
 }
-
-/* Menu Icon */
 .sidebar .menu {
   display: block;
   margin-left: 10px;
   cursor: pointer;
 }
-
-/* New Chat Button */
 .sidebar .new-chat {
   margin-top: 50px;
   display: inline-flex;
@@ -37,8 +31,6 @@
 .sidebar .new-chat:hover {
   background-color: #d1d7db;
 }
-
-/* Recent Chats */
 .sidebar .recent {
   display: flex;
   flex-direction: column;
@@ -64,8 +56,6 @@
 .sidebar .recent-entry:hover {
   background-color: #e2e6eb;
 }
-
-/* Bottom Section */
 .sidebar .bottom {
   display: flex;
   flex-direction: column;
@@ -81,8 +71,6 @@
 .sidebar .bottom-item:hover {
   background-color: #e2e6eb;
 }
-
-/* Activity Log Styles */
 .sidebar .activity-log {
   max-height: 300px;
   overflow-y: auto;
@@ -100,8 +88,6 @@
   margin-bottom: 5px;
   font-size: 14px;
 }
-
-/* Activity Log Button */
 .sidebar .activity-log-button {
   padding: 10px 15px;
   margin-top: 10px;
@@ -115,8 +101,6 @@
 .sidebar .activity-log-button:hover {
   background-color: #d1d7db;
 }
-
-/* Settings Section */
 .sidebar .settings {
   margin-top: 20px;
   animation: fadeIn 1.5s;
@@ -152,9 +136,8 @@
 }
 .sidebar .settings button:hover {
   background-color: #0056b3;
+  
 }
-
-/* Fade-in Animation */
 @keyframes fadeIn {
   from {
       opacity: 0;
@@ -165,8 +148,6 @@
       transform: translateY(0);
   }
 }
-
-/* Dark Mode Support */
 body.dark-mode .sidebar {
   background-color: #333;
   color: #fff;
@@ -191,30 +172,15 @@ body.dark-mode .sidebar .settings button {
 body.dark-mode .sidebar .settings button:hover {
   background-color: #777;
 }
-
-/* Responsive Design for Tablet and Mobile */
+/* Media Queries */
 @media (max-width: 1024px) {
-  /* Tablet view - adjust sidebar padding */
   .sidebar {
     padding: 20px 10px;
   }
 
-  /* Adjust the font size for smaller screens */
-  .sidebar .new-chat {
-    font-size: 12px;
-    padding: 8px 12px;
-  }
-
-  .sidebar .recent-entry {
-    font-size: 13px;
-    padding: 8px;
-  }
-
-  .sidebar .bottom-item {
-    font-size: 13px;
-    padding: 8px 12px;
-  }
-
+  .sidebar .new-chat,
+  .sidebar .recent-entry,
+  .sidebar .bottom-item,
   .sidebar .activity-log-button {
     font-size: 12px;
     padding: 8px 12px;
@@ -222,27 +188,28 @@ body.dark-mode .sidebar .settings button:hover {
 }
 
 @media (max-width: 600px) {
-  /* Mobile view - hide sidebar by default and show it on toggle */
   .sidebar {
-   display: none;
+    display: block;
     position: fixed;
     top: 0;
     left: 0;
-    width: 25px;
+    width: 250px;
     height: 100%;
     background-color: #f0f0f0;
     padding: 15px;
     z-index: 1000;
+    transform: translateX(-100%);
     transition: transform 0.3s ease;
-    transform: translateX(-100%); /* Hidden off-screen by default */
   }
 
-  /* When the sidebar is toggled, move it into view */
   .sidebar.show {
     transform: translateX(0);
   }
 
-  /* Adjust button sizes for mobile */
+  .sidebar img {
+    width: 20px;
+  }
+
   .sidebar .new-chat,
   .sidebar .recent-entry,
   .sidebar .bottom-item,
@@ -251,22 +218,22 @@ body.dark-mode .sidebar .settings button:hover {
     font-size: 14px;
     padding: 8px 12px;
   }
-  .sidebar .menu {
-    display: block;
-    cursor: pointer;
+}
+
+@media (max-width: 320px) {
+  .sidebar {
+    display: flex;
+    width: 200px;
+    padding: 10px;
+    font-size: 12px;
   }
 
   .sidebar img {
-    width: 20px;
-  }
-  .sidebar .top{
-    display: flex;
-    justify-content: space-between;
+    width: 16px;
   }
 
-  .sidebar .bottom-item {
-    padding-right: 15px;
-    display: flex;
-    align-items: center;
+  .sidebar .menu {
+    font-size: 16px;
+    display: block;
   }
 }

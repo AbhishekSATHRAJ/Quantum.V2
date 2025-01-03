@@ -77,13 +77,14 @@ function Sidebar() {
     <div className={`sidebar${sidebarVisible?"show":""}`}>
       <div className="top">
         <img
-          onClick={() =>{ setExtended((prev) => !prev);toggleSidebar}}
+          onClick={() =>{ setExtended((prev) => !prev);toggleSidebar;}}
           className="menu"
+          title="Menu"
           src={assets.menu_icon}
           alt="Menu_Icon"
         />
         <div onClick={handleNewChat} className="new-chat">
-          <img src={assets.plus_icon} alt="Plus" />
+          <img src={assets.plus_icon} alt="Plus" title="new-chat"/>
           {extended ? <p>New Chat</p> : null}
         </div>
         {extended ? (
@@ -140,15 +141,15 @@ function Sidebar() {
       ):(
       <div className="bottom">
         <div className="bottom-item recent-entry">
-          <img src={assets.question_icon} alt="" />
+          <img src={assets.question_icon} alt="Help" title="Help"/>
           {extended ? <p>Help</p> : null}
         </div>
         <div className="bottom-item recent-entry" onClick={toggleActivityLog}>
-          <img src={assets.history_icon} onClick={toggleActivityLog} alt="" />
+          <img src={assets.history_icon} onClick={toggleActivityLog} alt="Activity" title="Activity" />
           {extended ? <p>Activity</p> : null}
         </div>
         <div className="bottom-item recent-entry" onClick={toggleSettings}>
-          <img src={assets.setting_icon} alt="" onClick={toggleSettings}  />
+          <img src={assets.setting_icon} alt="Settings" title="Settings" onClick={toggleSettings}  />
           {extended ? <p>Settings</p> : null}
         </div>
       </div>
