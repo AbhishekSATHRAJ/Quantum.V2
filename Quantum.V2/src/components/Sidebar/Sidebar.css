@@ -205,16 +205,16 @@ body.dark-mode .sidebar .settings button:hover {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 320px) {
   .sidebar {
     display: block;
     position: fixed;
     top: 0;
     left: 0;
-    width: 250px;
+    width: 200px;
     height: 100%;
     background-color: #f0f0f0;
-    padding: 15px;
+    padding: 10px;
     z-index: 1000;
     transform: translateX(-100%);
     transition: transform 0.3s ease;
@@ -225,7 +225,7 @@ body.dark-mode .sidebar .settings button:hover {
   }
 
   .sidebar img {
-    width: 20px;
+    width: 16px;
   }
 
   .sidebar .new-chat,
@@ -233,34 +233,8 @@ body.dark-mode .sidebar .settings button:hover {
   .sidebar .bottom-item,
   .sidebar .activity-log-button,
   .sidebar .settings button {
-    font-size: 14px;
-    padding: 8px 12px;
-  }
-}
-
-
-
-@media (max-width: 320px) {
-  .sidebar {
-    display: block;
-    position: fixed;  /* Ensure it's fixed if you want it to be a sticky sidebar */
-    top: 0;
-    left: 0;
-    width: 200px;
-    height: 100%;
-    background-color: #f0f0f0;
-    padding: 10px;
     font-size: 12px;
-    flex-direction: column;
-    z-index: 1000;
-  }
-
-  .sidebar img {
-    width: 16px;
-  }
-
-  .sidebar .menu {
-    font-size: 16px;
-    display: block;
+    padding: 6px 8px;
   }
 }
+
