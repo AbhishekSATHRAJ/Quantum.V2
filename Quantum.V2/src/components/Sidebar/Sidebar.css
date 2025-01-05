@@ -187,7 +187,25 @@ body.dark-mode .sidebar .settings button:hover {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+  .sidebar {
+    padding: 15px;
+  }
+
+  .sidebar img {
+    width: 24px;
+  }
+
+  .sidebar .new-chat,
+  .sidebar .recent-entry,
+  .sidebar .bottom-item,
+  .sidebar .activity-log-button {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+}
+
+@media (max-width: 480px) {
   .sidebar {
     display: block;
     position: fixed;
@@ -220,12 +238,21 @@ body.dark-mode .sidebar .settings button:hover {
   }
 }
 
+
+
 @media (max-width: 320px) {
   .sidebar {
-    display: flex;
+    display: block;
+    position: fixed;  /* Ensure it's fixed if you want it to be a sticky sidebar */
+    top: 0;
+    left: 0;
     width: 200px;
+    height: 100%;
+    background-color: #f0f0f0;
     padding: 10px;
     font-size: 12px;
+    flex-direction: column;
+    z-index: 1000;
   }
 
   .sidebar img {
