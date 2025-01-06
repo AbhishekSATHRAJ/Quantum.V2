@@ -172,69 +172,146 @@ body.dark-mode .sidebar .settings button {
 body.dark-mode .sidebar .settings button:hover {
   background-color: #777;
 }
-/* Media Queries */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* For screens with max-width of 1024px */
 @media (max-width: 1024px) {
   .sidebar {
     padding: 20px 10px;
-  }
-
-  .sidebar .new-chat,
-  .sidebar .recent-entry,
-  .sidebar .bottom-item,
-  .sidebar .activity-log-button {
-    font-size: 12px;
-    padding: 8px 12px;
-  }
-}
-
-@media (max-width: 768px) {
-  .sidebar {
-    padding: 15px;
-  }
-
-  .sidebar img {
-    width: 24px;
-  }
-
-  .sidebar .new-chat,
-  .sidebar .recent-entry,
-  .sidebar .bottom-item,
-  .sidebar .activity-log-button {
-    font-size: 14px;
-    padding: 8px 10px;
-  }
-}
-
-@media (max-width: 320px) {
-  .sidebar {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 200px;
-    height: 100%;
-    background-color: #f0f0f0;
-    padding: 10px;
-    z-index: 1000;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-  }
-
-  .sidebar.show {
-    transform: translateX(0);
   }
 
   .sidebar img {
     width: 16px;
   }
 
-  .sidebar .new-chat,
-  .sidebar .recent-entry,
-  .sidebar .bottom-item,
-  .sidebar .activity-log-button,
+  .sidebar .new-chat {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .sidebar .recent-title {
+    font-size: 16px;
+  }
+
+  .sidebar .recent-entry {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .sidebar .bottom-item {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .sidebar .activity-log {
+    max-height: 250px;
+    padding: 8px;
+  }
+
+  .sidebar .activity-log-button {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .sidebar .settings h3 {
+    font-size: 16px;
+  }
+
+  .sidebar .settings label {
+    font-size: 12px;
+  }
+
+  .sidebar .settings input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+  }
+
   .sidebar .settings button {
     font-size: 12px;
-    padding: 6px 8px;
+    padding: 8px 12px;
   }
 }
 
+/* For screens with max-width of 320px */
+@media (max-width: 320px) {
+  .sidebar {
+    padding: 15px 8px;
+  }
+
+  .sidebar img {
+    width: 14px;
+  }
+
+  .sidebar .new-chat {
+    font-size: 10px;
+    padding: 6px 10px;
+  }
+
+  .sidebar .recent-title {
+    font-size: 14px;
+  }
+
+  .sidebar .recent-entry {
+    font-size: 10px;
+    padding: 6px;
+  }
+
+  .sidebar .bottom-item {
+    font-size: 10px;
+    padding: 6px;
+  }
+
+  .sidebar .activity-log {
+    max-height: 200px;
+    padding: 6px;
+  }
+
+  .sidebar .activity-log-button {
+    font-size: 10px;
+    padding: 6px 10px;
+  }
+
+  .sidebar .settings h3 {
+    font-size: 14px;
+  }
+
+  .sidebar .settings label {
+    font-size: 10px;
+  }
+
+  .sidebar .settings input[type="checkbox"] {
+    width: 12px;
+    height: 12px;
+  }
+
+  .sidebar .settings button {
+    font-size: 10px;
+    padding: 6px 10px;
+  }
+}

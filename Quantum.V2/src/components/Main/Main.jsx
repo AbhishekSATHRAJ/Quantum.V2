@@ -11,7 +11,7 @@ import {
 import { Context } from "../../context/Context";
 import "./Main.css";
 import { assets } from "../../assets/assets";
-import e from "cors";
+import cors from "cors";
 
 const MainUser = () => {
   const {

@@ -196,40 +196,6 @@
     line-height: 1.8;
 }
 
-@media (max-width: 600px) {
-    .main-bottom input {
-        flex: none;
-        width: 150px;
-    }
-
-    .main-bottom img {
-        width: 20px;
-    }
-
-    .search-box {
-        padding: 5px 10px;
-        gap: 10px;
-    }
-
-    .search-box div {
-        gap: 10px;
-        align-items: center;
-    }
-
-    .search-box img {
-        width: 30px;
-    }
-
-    .search-box input {
-        flex: 1;
-        font-size: 16px;
-        padding: 8px;
-    }
-
-    .search-box img.send-icon {
-        width: 25px;
-    }
-}
 
 .user-auth {
     display: flex;
@@ -340,25 +306,6 @@ button:disabled {
     animation: shake 0.5s ease-out;
 }
 
-@media (max-width: 600px) {
-    .user-auth {
-        width: 90%;
-        padding: 25px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    }
-
-    .user-auth input[type="text"],
-    .user-auth input[type="email"],
-    .user-auth input[type="password"] {
-        font-size: 14px;
-    }
-
-    button {
-        font-size: 14px;
-        padding: 12px 18px;
-    }
-}
-
 @keyframes fadeInUp {
     0% {
         opacity: 0;
@@ -387,3 +334,117 @@ button:disabled {
         transform: translateX(0);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* For screens with max-width of 1024px */
+@media (max-width: 1024px) {
+    .search-box {
+      padding: 8px 12px;
+      gap: 8px;
+    }
+  
+    .search-box img {
+      width: 20px; /* Reduce the size of icons */
+      height: 20px;
+    }
+  
+    .cards {
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Ensure cards fit within the viewport */
+      gap: 10px;
+      padding: 10px;
+    }
+  
+    .main .card {
+      height: 150px; /* Reduce card height */
+    }
+  
+    .main .card img {
+      width: 25px; /* Resize card icon */
+      bottom: 8px; /* Adjust icon position */
+      right: 8px;
+    }
+  
+    .main .card p {
+      font-size: 14px; /* Adjust text size inside cards */
+    }
+  
+    .search-box input {
+      font-size: 16px;
+      padding: 6px;
+    }
+  }
+  
+  /* For screens with max-width of 320px */
+  @media (max-width: 320px) {
+    .search-box {
+      padding: 6px 8px; /* Reduce padding for smaller screens */
+      gap: 5px;
+    }
+  
+    .search-box img {
+      width: 16px; /* Further reduce icon size */
+      height: 16px;
+    }
+  
+    .cards {
+      grid-template-columns: 1fr; /* Single-column layout for cards */
+      gap: 8px;
+      padding: 5px;
+    }
+  
+    .main .card {
+      height: 130px; /* Further reduce card height */
+    }
+  
+    .main .card img {
+      width: 20px; /* Resize card icon for smaller screens */
+      bottom: 5px; /* Adjust icon position */
+      right: 5px;
+    }
+  
+    .main .card p {
+      font-size: 12px; /* Adjust text size for readability */
+    }
+  
+    .search-box input {
+      font-size: 14px; /* Smaller font for input */
+      padding: 5px;
+    }
+  }
+  
