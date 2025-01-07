@@ -11,7 +11,7 @@ import {
 import { Context } from "../../context/Context";
 import "./Main.css";
 import { assets } from "../../assets/assets";
-import cors from "cors";
+// import cors from "cors";
 
 const MainUser = () => {
   const {
@@ -34,6 +34,49 @@ const MainUser = () => {
   const [showUserAuth, setShowUserAuth] = useState(false);
   const [userIcon, setUserIcon] = useState(assets.user_icon); // Dynamic user icon
   const [selectedImage, setSelectedImage] = useState(null);
+  const [isRecording,setIsRecording]=useState(false);
+  const [mediaRecorder,setMediaRecorder]=useState(null);
+  const [audioChunks,setAudioChunks]=useState([]);
+  const [audioBlob,setAudioBlob]=useState(null);
+
+
+
+  const handleMicrophoneClick = async () => {
+    if (!isRecording) {
+      try {
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = "en-US"; // Set language to English (or desired language)
+        recognition.interimResults = false; // Get only final results
+  
+        recognition.start();
+        setIsRecording(true);
+  
+        recognition.onresult = (event) => {
+          const transcript = event.results[0][0].transcript; // Capture the speech-to-text result
+          console.log("Transcribed Text:", transcript);
+  
+          // Send the transcribed text to the onSent function
+          onSent(transcript);
+        };
+  
+        recognition.onend = () => {
+          setIsRecording(false); // Stop recording state
+        };
+  
+        recognition.onerror = (event) => {
+          console.error("Speech recognition error:", event.error);
+          setIsRecording(false);
+        };
+      } catch (error) {
+        console.error("Speech recognition not supported:", error);
+        setIsRecording(false);
+      }
+    } else {
+      setIsRecording(false); // Safeguard for stopping
+    }
+  };
+  
+  
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -380,7 +423,7 @@ const MainUser = () => {
                     style={{ display: "none" }}
                     onChange={handleImageSelection}
                   />
-                  <img src={assets.mic_icon} alt="Mic_icon" title="Mic_icon" />
+                  <img onClick={handleMicrophoneClick} src={isRecording?assets.mic_recording_icon:assets.mic_icon} alt="Mic_icon" title="Mic_icon" />
                   {input ? (
                     <img
                       onClick={() => onSent()}

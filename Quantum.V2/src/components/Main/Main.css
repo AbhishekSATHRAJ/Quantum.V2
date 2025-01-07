@@ -4,12 +4,12 @@
     padding-bottom: 15vh;
     position: relative;
     flex-direction: column;
-    background-image: url("/src/assets/desktop-with-glasses-diary-scissors-side.jpg");
     background-size: cover; /* Ensures the image covers the entire container */
     background-position: center; /* Centers the image */
     background-repeat: no-repeat; /* Prevents the image from repeating */
     background-attachment: fixed; /* Keeps the image fixed while scrolling */
-    background-color: #f9f9f9; /* Fallback light color for better contrast */
+    background-color: white; 
+    transition: background-color 0.3s ease;
 }
 
 .main-user::before {

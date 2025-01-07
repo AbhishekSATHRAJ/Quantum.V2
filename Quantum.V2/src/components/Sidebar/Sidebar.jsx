@@ -18,6 +18,7 @@ function Sidebar() {
 
 
   const [sidebarVisible, setSidebarVisible] = useState(false); 
+  const [showHelp, setShowHelp] = useState(false);
 
 
 
@@ -31,6 +32,10 @@ function Sidebar() {
 
   const toggleSidebar = () => {
     setSidebarVisible((prev) => !prev);
+    };
+    
+    const toggleHelp = () => {
+      setShowHelp(!showHelp);
     };
 
   const toggleActivityLog=()=>{
@@ -103,7 +108,13 @@ function Sidebar() {
           </div>
         ) : null}
       </div>
-      {showActivityLog ? (
+      {showHelp ? (
+      <div className="help-modal">
+        <h3>Help</h3>
+        <p>Here you can add some help content, tips, or instructions for the user.</p>
+        <button onClick={() => setShowHelp(false)}>Close Help</button>
+      </div>
+    ) :showActivityLog ? (
         <div className="activity-log">
           <h3>Activity Log</h3>
           <ul>
@@ -140,8 +151,8 @@ function Sidebar() {
           </div>
       ):(
       <div className="bottom">
-        <div className="bottom-item recent-entry">
-          <img src={assets.question_icon} alt="Help" title="Help"/>
+        <div className="bottom-item recent-entry" onClick={toggleHelp}>
+          <img src={assets.question_icon} alt="Help" title="Help" onClick={toggleHelp}/>
           {extended ? <p>Help</p> : null}
         </div>
         <div className="bottom-item recent-entry" onClick={toggleActivityLog}>

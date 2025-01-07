@@ -1,3 +1,4 @@
+/* Sidebar Styles */
 .sidebar {
   min-height: 100vh;
   display: inline-flex;
@@ -7,14 +8,17 @@
   padding: 25px 15px;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
+
 .sidebar img {
   width: 20px;
 }
+
 .sidebar .menu {
   display: block;
   margin-left: 10px;
   cursor: pointer;
 }
+
 .sidebar .new-chat {
   margin-top: 50px;
   display: inline-flex;
@@ -28,20 +32,24 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
+
 .sidebar .new-chat:hover {
   background-color: #d1d7db;
 }
+
 .sidebar .recent {
   display: flex;
   flex-direction: column;
   animation: fadeIn 1.5s;
 }
+
 .sidebar .recent-title {
   margin-top: 13px;
   margin-bottom: 20px;
   font-weight: bold;
   color: #282828;
 }
+
 .sidebar .recent-entry {
   display: flex;
   align-items: center;
@@ -53,13 +61,16 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
+
 .sidebar .recent-entry:hover {
   background-color: #e2e6eb;
 }
+
 .sidebar .bottom {
   display: flex;
   flex-direction: column;
 }
+
 .sidebar .bottom-item {
   padding-right: 10px;
   cursor: pointer;
@@ -67,10 +78,26 @@
   align-items: center;
   gap: 10px;
   transition: background-color 0.3s ease;
+  padding: 10px 15px;
+  border-radius: 50px;
+  background-color: #e6eaf1; /* Standard background color */
+  color: gray;
 }
+
 .sidebar .bottom-item:hover {
-  background-color: #e2e6eb;
+  background-color: #d1d7db; /* Standard hover color */
 }
+
+.sidebar .bottom-item img {
+  width: 20px;
+  transition: filter 0.3s ease;
+}
+
+.sidebar .bottom-item:hover img {
+  filter: brightness(0.8); /* Slight darkening on hover */
+}
+
+/* Activity Log Styles */
 .sidebar .activity-log {
   max-height: 300px;
   overflow-y: auto;
@@ -80,14 +107,17 @@
   background-color: #f9f9f9;
   color: #282828;
 }
+
 .sidebar .activity-log ul {
   list-style: none;
   padding: 0;
 }
+
 .sidebar .activity-log li {
   margin-bottom: 5px;
   font-size: 14px;
 }
+
 .sidebar .activity-log-button {
   padding: 10px 15px;
   margin-top: 10px;
@@ -98,18 +128,23 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
+
 .sidebar .activity-log-button:hover {
   background-color: #d1d7db;
 }
+
+/* Settings Styles */
 .sidebar .settings {
   margin-top: 20px;
   animation: fadeIn 1.5s;
 }
+
 .sidebar .settings h3 {
   font-size: 18px;
   color: #282828;
   margin-bottom: 15px;
 }
+
 .sidebar .settings label {
   display: flex;
   align-items: center;
@@ -119,68 +154,108 @@
   color: gray;
   cursor: pointer;
 }
+
 .sidebar .settings input[type="checkbox"] {
   width: 16px;
   height: 16px;
   cursor: pointer;
 }
+
 .sidebar .settings button {
   padding: 10px 15px;
   border: none;
-  background-color: #007bff;
+  background-color: #4CAF50; /* Consistent button color */
   color: white;
   border-radius: 5px;
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
+
 .sidebar .settings button:hover {
-  background-color: #0056b3;
-  
+  background-color: #45a049; /* Matching hover state */
 }
-@keyframes fadeIn {
-  from {
-      opacity: 0;
-      transform: translateY(10px);
-  }
-  to {
-      opacity: 1;
-      transform: translateY(0);
-  }
-}
+
+/* Dark Mode Styling */
 body.dark-mode .sidebar {
   background-color: #333;
   color: #fff;
 }
+
 body.dark-mode .sidebar .new-chat {
   background-color: #444;
   color: #ccc;
 }
+
 body.dark-mode .sidebar .recent-entry:hover {
   background-color: #555;
 }
+
 body.dark-mode .sidebar .bottom-item:hover {
   background-color: #555;
 }
+
 body.dark-mode .sidebar .activity-log {
   background-color: #444;
   border-color: #555;
 }
+
 body.dark-mode .sidebar .settings button {
   background-color: #555;
 }
+
 body.dark-mode .sidebar .settings button:hover {
   background-color: #777;
 }
 
+/* Help Modal Styles inside Sidebar */
+.help-modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  max-height: 400px; /* Adjust height to limit the box size */
+  max-width: 280px; /* Control width */
+  width: 100%; /* Ensure it takes the available width */
+  overflow-y: auto;
+  position: relative;
+}
 
+.help-modal h3 {
+  margin-top: 0;
+  font-size: 18px; /* Adjust heading font size */
+}
 
+.help-modal p {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
 
+.help-modal button {
+  padding: 8px 16px;
+  background-color: #4CAF50; /* Standard button color */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
+.help-modal button:hover {
+  background-color: #45a049; /* Slightly darker shade for hover */
+}
 
-
-
-
+/* Keyframes for Fade-in Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 
 
