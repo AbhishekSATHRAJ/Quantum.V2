@@ -303,12 +303,12 @@ const MainUser = () => {
           <div className="nav">
             <p>Quantum.V2</p>
             <img
-              src={user ? user.photoURL || userIcon : assets.user_icon}
+              src={user ? assets.user_icon || userIcon: assets.user }
               alt="User_Icon"
               title="User_Icon"
               onClick={toggleUserAuth}
               onError={(e) => {
-                e.target.src = assets.user_icon;
+                e.target.src = assets.user;
               }}
             />
           </div>
@@ -382,7 +382,7 @@ const MainUser = () => {
                 </div>
                 <div className="result-data">
                   <img
-                    src={assets.gemini_icon}
+                    src={assets.science}
                     alt="Quantum.V2"
                     title="Quantum.V2"
                   />

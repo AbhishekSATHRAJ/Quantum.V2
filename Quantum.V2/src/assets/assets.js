@@ -14,10 +14,14 @@ import code_icon from './code_icon.png'
 import send_icon from './send_icon.png'
 import gemini_icon from './gemini_icon.png'
 import mic_recording_icon from './mic_recording_icon.png'
+import science from './science.png'
+import user from './user.png'
 
 
 
 export const assets = {
+    user,
+    science,
     mic_recording_icon,
     history_icon,
     menu_icon,

@@ -50,14 +50,12 @@ function Sidebar() {
   };
   const toggleNotifications=()=>{
     setNotificationsEnabled(!notificationsEnabled);
-    alert(`Notifications ${!notificationsEnabled ? "Enabled" : "Disabled"}`);
     addLog(`Notifications ${!notificationsEnabled ? "Enabled" : "Disabled"}`);
     };
     const toggleDarkMode=()=>{
       setDarkModeEnabled(!darkModeEnabled);
       document.body.style.backgroundColor = !darkModeEnabled ? "#333" : "#fff";
       document.body.style.color = !darkModeEnabled ? "#fff" : "#000";
-      alert(`Dark Mode ${!darkModeEnabled ? "Enabled" : "Disabled"}`);
       addLog(`Dark Mode ${!darkModeEnabled ? "Enabled" : "Disabled"}`);
     };
   // Log activity
