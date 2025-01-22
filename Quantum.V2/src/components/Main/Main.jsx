@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { auth } from "../../server/firebase"; // Ensure Firebase is configured properly
+import { auth } from "../../server/firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -11,7 +11,6 @@ import {
 import { Context } from "../../context/Context";
 import "./Main.css";
 import { assets } from "../../assets/assets";
-// import cors from "cors";
 
 const MainUser = () => {
   const {
@@ -24,45 +23,42 @@ const MainUser = () => {
     input,
   } = useContext(Context);
 
-  // Authentication states
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-  const [user, setUser] = useState(null); // Logged-in user state
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showUserAuth, setShowUserAuth] = useState(false);
-  const [userIcon, setUserIcon] = useState(assets.user_icon); // Dynamic user icon
+  const [userIcon, setUserIcon] = useState(assets.user_icon);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [isRecording,setIsRecording]=useState(false);
-  const [mediaRecorder,setMediaRecorder]=useState(null);
-  const [audioChunks,setAudioChunks]=useState([]);
-  const [audioBlob,setAudioBlob]=useState(null);
-
-
+  const [isRecording, setIsRecording] = useState(false);
+  const [mediaRecorder, setMediaRecorder] = useState(null);
+  const [audioChunks, setAudioChunks] = useState([]);
+  const [audioBlob, setAudioBlob] = useState(null);
 
   const handleMicrophoneClick = async () => {
     if (!isRecording) {
       try {
-        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-        recognition.lang = "en-US"; // Set language to English (or desired language)
-        recognition.interimResults = false; // Get only final results
-  
+        const recognition = new (window.SpeechRecognition ||
+          window.webkitSpeechRecognition)();
+        recognition.lang = "en-US";
+        recognition.interimResults = false;
+
         recognition.start();
         setIsRecording(true);
-  
+
         recognition.onresult = (event) => {
-          const transcript = event.results[0][0].transcript; // Capture the speech-to-text result
+          const transcript = event.results[0][0].transcript;
           console.log("Transcribed Text:", transcript);
-  
-          // Send the transcribed text to the onSent function
+
           onSent(transcript);
         };
-  
+
         recognition.onend = () => {
-          setIsRecording(false); // Stop recording state
+          setIsRecording(false);
         };
-  
+
         recognition.onerror = (event) => {
           console.error("Speech recognition error:", event.error);
           setIsRecording(false);
@@ -72,11 +68,9 @@ const MainUser = () => {
         setIsRecording(false);
       }
     } else {
-      setIsRecording(false); // Safeguard for stopping
+      setIsRecording(false);
     }
   };
-  
-  
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -94,7 +88,7 @@ const MainUser = () => {
       }
     });
 
-    return () => unsubscribe(); // Cleanup subscription
+    return () => unsubscribe();
   }, []);
 
   const handleImageSelection = async (event) => {
@@ -139,10 +133,8 @@ const MainUser = () => {
     }
   };
 
-  // Validate email format
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-  // Register function
   const register = async () => {
     setError("");
     setLoading(true);
@@ -194,16 +186,16 @@ const MainUser = () => {
         alert("Please verify your email before signing in.");
         await signOut(auth);
         setUser(null);
-        setUserIcon(assets.user_icon); // Default icon
+        setUserIcon(assets.user_icon);
       } else {
         setUser({
           email: loggedInUser.email,
           displayName: username,
           photoURL: loggedInUser.photoURL,
         });
-        setUserIcon(loggedInUser.photoURL || assets.user_icon); // Update to logged-in icon
+        setUserIcon(loggedInUser.photoURL || assets.user_icon);
         alert("Signed in successfully!");
-        setShowUserAuth(false); // Navigate to main view
+        setShowUserAuth(false);
       }
     } catch (err) {
       setError(err.message || "Login failed.");
@@ -217,7 +209,7 @@ const MainUser = () => {
     try {
       await signOut(auth);
       setUser(null);
-      setUserIcon(assets.user_icon); // Reset to default icon
+      setUserIcon(assets.user_icon);
       alert("Signed out successfully!");
     } catch (err) {
       setError(err.message || "Logout failed.");
@@ -303,7 +295,7 @@ const MainUser = () => {
           <div className="nav">
             <p>Quantum.V2</p>
             <img
-              src={user ? assets.user_icon || userIcon: assets.user }
+              src={user ? assets.user_icon || userIcon : assets.user}
               alt="User_Icon"
               title="User_Icon"
               onClick={toggleUserAuth}
@@ -404,9 +396,11 @@ const MainUser = () => {
                   onChange={(e) => setInput(e.target.value)}
                   value={input}
                   type="text"
-                  onKeyDown={(e)=>{if(e.key==="Enter"){
-                    onSent();
-                  }}}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      onSent();
+                    }
+                  }}
                   placeholder="Enter a prompt here..."
                 />
                 <div>
@@ -423,7 +417,14 @@ const MainUser = () => {
                     style={{ display: "none" }}
                     onChange={handleImageSelection}
                   />
-                  <img onClick={handleMicrophoneClick} src={isRecording?assets.mic_recording_icon:assets.mic_icon} alt="Mic_icon" title="Mic_icon" />
+                  <img
+                    onClick={handleMicrophoneClick}
+                    src={
+                      isRecording ? assets.mic_recording_icon : assets.mic_icon
+                    }
+                    alt="Mic_icon"
+                    title="Mic_icon"
+                  />
                   {input ? (
                     <img
                       onClick={() => onSent()}
