@@ -1,1 +1,5 @@
 Quantum.V2/src/server/quantum-c7cbc-firebase-adminsdk-ojw5y-761649b398.json
+
+
+# Ignore environment files
+.env
