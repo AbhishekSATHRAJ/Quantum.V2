@@ -127,7 +127,7 @@ const MainUser = () => {
         photoURL: selectedImage || userIcon,
       }));
       setUserIcon(selectedImage || userIcon);
-      alert("Profile updated successfully!");
+    
     } catch (err) {
       setError(err.message || "Failed to update profile.");
     }
@@ -183,7 +183,7 @@ const MainUser = () => {
       const loggedInUser = userCredential.user;
 
       if (!loggedInUser.emailVerified) {
-        alert("Please verify your email before signing in.");
+        
         await signOut(auth);
         setUser(null);
         setUserIcon(assets.user_icon);
@@ -194,7 +194,7 @@ const MainUser = () => {
           photoURL: loggedInUser.photoURL,
         });
         setUserIcon(loggedInUser.photoURL || assets.user_icon);
-        alert("Signed in successfully!");
+        
         setShowUserAuth(false);
       }
     } catch (err) {
@@ -210,7 +210,7 @@ const MainUser = () => {
       await signOut(auth);
       setUser(null);
       setUserIcon(assets.user_icon);
-      alert("Signed out successfully!");
+      
     } catch (err) {
       setError(err.message || "Logout failed.");
     }
@@ -225,7 +225,6 @@ const MainUser = () => {
 
     try {
       await sendEmailVerification(auth.currentUser);
-      alert("Verification email resent.");
     } catch (err) {
       setError(err.message || "Failed to resend verification email.");
     }
