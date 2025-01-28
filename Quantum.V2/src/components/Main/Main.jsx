@@ -8,6 +8,8 @@ import {
   onAuthStateChanged,
   updateProfile,
 } from "firebase/auth";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Context } from "../../context/Context";
 import "./Main.css";
 import { assets } from "../../assets/assets";
@@ -82,6 +84,7 @@ const MainUser = () => {
         });
         setUserIcon(currentUser.photoURL || assets.user_icon);
         logActivity("User Signed in");
+        toast.success("User signed in successfully!");
       } else {
         setUser(null);
         setUserIcon(assets.user_icon);
@@ -127,7 +130,6 @@ const MainUser = () => {
         photoURL: selectedImage || userIcon,
       }));
       setUserIcon(selectedImage || userIcon);
-    
     } catch (err) {
       setError(err.message || "Failed to update profile.");
     }
@@ -141,6 +143,7 @@ const MainUser = () => {
 
     if (!email || !password || !username || !validateEmail(email)) {
       setError("Please fill in all fields with valid details.");
+      toast.error("Please fill in all fields with valid details.");
       setLoading(false);
       return;
     }
@@ -152,7 +155,7 @@ const MainUser = () => {
         password
       );
       await sendEmailVerification(newUser.user);
-      alert("Verification email sent! Please check your inbox.");
+      toast.success("Verification email sent! Check your inbox.");
       setEmail("");
       setPassword("");
       setUsername("");
@@ -170,6 +173,7 @@ const MainUser = () => {
 
     if (!email || !password || !validateEmail(email)) {
       setError("Please provide valid email and password.");
+      toast.error("Please provide valid email and password.");
       setLoading(false);
       return;
     }
@@ -183,8 +187,8 @@ const MainUser = () => {
       const loggedInUser = userCredential.user;
 
       if (!loggedInUser.emailVerified) {
-        
         await signOut(auth);
+        toast.error("Please verify your email before logging in.");
         setUser(null);
         setUserIcon(assets.user_icon);
       } else {
@@ -194,7 +198,7 @@ const MainUser = () => {
           photoURL: loggedInUser.photoURL,
         });
         setUserIcon(loggedInUser.photoURL || assets.user_icon);
-        
+        toast.success("Login successful!");
         setShowUserAuth(false);
       }
     } catch (err) {
@@ -210,7 +214,7 @@ const MainUser = () => {
       await signOut(auth);
       setUser(null);
       setUserIcon(assets.user_icon);
-      
+      toast.info("Logged out successfully.");
     } catch (err) {
       setError(err.message || "Logout failed.");
     }
@@ -219,12 +223,14 @@ const MainUser = () => {
   // Resend verification email
   const resendVerificationEmail = async () => {
     if (!auth.currentUser) {
+      toast.error("No user is signed in.");
       setError("No user is signed in.");
       return;
     }
 
     try {
       await sendEmailVerification(auth.currentUser);
+      toast.success("Verification email resent successfully!");
     } catch (err) {
       setError(err.message || "Failed to resend verification email.");
     }
@@ -238,6 +244,7 @@ const MainUser = () => {
 
   return (
     <div className="main-user">
+      <ToastContainer position="top-right" autoClose={3000} />
       {showUserAuth ? (
         <div className="user-auth">
           <h1>User Authentication</h1>

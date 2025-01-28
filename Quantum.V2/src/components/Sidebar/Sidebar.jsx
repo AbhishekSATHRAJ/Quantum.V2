@@ -1,5 +1,7 @@
 import { useContext, useState } from "react";
 import "./Sidebar.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { assets } from "../../assets/assets";
 import { Context } from "../../context/Context";
 
@@ -45,6 +47,7 @@ function Sidebar() {
   };
   const toggleNotifications = () => {
     setNotificationsEnabled(!notificationsEnabled);
+    toast.info(`Notifications ${!notificationsEnabled ? "Enabled" : "Disabled"}`);
     addLog(`Notifications ${!notificationsEnabled ? "Enabled" : "Disabled"}`);
   };
   const toggleDarkMode = () => {
@@ -52,6 +55,7 @@ function Sidebar() {
     document.body.style.backgroundColor = !darkModeEnabled ? "#333" : "#fff";
     document.body.style.color = !darkModeEnabled ? "#fff" : "#000";
     addLog(`Dark Mode ${!darkModeEnabled ? "Enabled" : "Disabled"}`);
+    toast.success(`Dark Mode ${!darkModeEnabled ? "Enabled" : "Disabled"}`);
   };
   // Log activity
   const addLog = (message) => {
@@ -65,13 +69,16 @@ function Sidebar() {
     setRecentPrompt(prompt);
     await onSent(prompt);
     addLog(`Loaded prompt: "${prompt.slice(0, 18)}..."`);
+    toast.success(`Prompt loaded: "${prompt.slice(0, 18)}..."`);
   }, 1000);
   const handleNewChat = debounceAction(() => {
     newChat();
     addLog("Started a new chat");
+    toast.info("New chat started");
   }, 1000);
 
   return (
+      <><ToastContainer position="top-right" autoClose={3000} />
     <div className={`sidebar${sidebarVisible ? "show" : ""}`}>
       <div className="top">
         <img
@@ -187,6 +194,7 @@ function Sidebar() {
         </div>
       )}
     </div>
+    </>
   );
 }
 export default Sidebar;
