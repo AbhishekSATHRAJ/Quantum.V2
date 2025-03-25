@@ -14,7 +14,7 @@ import { Context } from "../../context/Context";
 import "./Main.css";
 import { assets } from "../../assets/assets";
 
-const MainUser = () => {
+const MainUser = ({ isSidebarVisible, toggleSidebar }) => {
   const {
     onSent,
     recentPrompt,
@@ -299,9 +299,16 @@ const MainUser = () => {
       ) : (
         <div className="main">
           <div className="nav">
+            <img
+              onClick={toggleSidebar}
+              className="menu"
+              title="Menu"
+              src={assets.menu_icon}
+              alt="Menu_Icon"
+            />
             <p>Quantum.V2</p>
             <img
-              src={user ? assets.user_icon || userIcon : assets.user}
+              src={user ? userIcon || assets.user_icon : assets.user}
               alt="User_Icon"
               title="User_Icon"
               onClick={toggleUserAuth}

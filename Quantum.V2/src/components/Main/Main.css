@@ -51,8 +51,8 @@
 }
 
 .main .greet {
-  margin: 50px 0px;
-  font-size: 56px;
+  margin: 10px 0px 4px 0px;
+  font-size: 40px;
   color: #c4c7c5;
   font-weight: 500;
   padding: 20px;
@@ -67,7 +67,7 @@
 .main .cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 15px;
+  gap: 10px;
   padding: 20px;
 }
 
@@ -117,16 +117,13 @@
   background-color: #f0f4f9;
   padding: 10px 20px;
   border-radius: 50px;
+  color: #3871cc;
 }
 
 .search-box img {
-  width: 24px;
+  width: 20px; 
+  height: 20px;
   cursor: pointer;
-  transition: width 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-
-.search-box img:hover {
-  width: 40px;
 }
 
 .search-box input {
@@ -139,9 +136,10 @@
 }
 
 .search-box div {
+  margin-right: 35px;
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 5px;
 }
 
 .main .bottom-info {
@@ -220,14 +218,11 @@
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
-  background-size: cover;
-  border-radius: 15px;
   padding: 40px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
   box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
-  animation: fadeInUp 1s ease-out;
-  backdrop-filter: blur(8px);
-  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .user-auth:hover {
@@ -244,6 +239,14 @@ h1 {
   margin-bottom: 25px;
   position: relative;
   padding-bottom: 12px;
+}
+
+.user-auth h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #4b90ff;
+  text-transform: uppercase;
+  margin-bottom: 25px;
 }
 
 h1::after {
@@ -278,7 +281,6 @@ h1::after {
   border-color: #4b90ff;
   background-color: #fff;
   box-shadow: 0 0 15px rgba(75, 144, 255, 0.5);
-  transform: scale(1.05);
 }
 
 button {
@@ -290,16 +292,11 @@ button {
   border-radius: 30px;
   cursor: pointer;
   margin-top: 20px;
-  transition: background-color 0.3s ease, transform 0.3s ease-in-out,
-    box-shadow 0.3s ease;
-  box-shadow: 0 5px 15px rgba(75, 144, 255, 0.3);
-  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.3s ease-in-out;
 }
 
 button:hover {
   background-color: #3871cc;
-  transform: translateY(-5px);
-  box-shadow: 0 5px 30px rgba(75, 144, 255, 0.5);
 }
 
 button:active {
@@ -318,7 +315,6 @@ button:disabled {
   font-size: 14px;
   margin-top: 15px;
   text-align: center;
-  animation: shake 0.5s ease-out;
 }
 
 @keyframes fadeInUp {
@@ -350,40 +346,6 @@ button:disabled {
   }
 }
 
-@media (max-width: 1024px) {
-  .main-user {
-    background-size: contain;
-    background-position: top;
-  }
-  .search-box {
-    padding: 8px 12px;
-    gap: 8px;
-  }
-  .search-box img {
-    width: 20px;
-    height: 20px;
-  }
-  .cards {
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 10px;
-    padding: 10px;
-  }
-  .main .card {
-    height: 150px;
-  }
-  .main .card img {
-    width: 25px;
-    bottom: 8px;
-    right: 8px;
-  }
-  .main .card p {
-    font-size: 14px;
-  }
-  .search-box input {
-    font-size: 16px;
-    padding: 6px;
-  }
-}
 
 @media (max-width: 320px) {
   .main-user {
@@ -395,7 +357,7 @@ button:disabled {
     gap: 5px;
   }
   .search-box img {
-    width: 16px;
+    width: 16px; 
     height: 16px;
   }
   .cards {
@@ -417,5 +379,176 @@ button:disabled {
   .search-box input {
     font-size: 14px;
     padding: 5px;
+  }
+}
+
+
+@media (min-width: 321px) and (max-width: 600px) {
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: white;
+  }
+  .main-user {
+    background-size: cover; 
+  }
+  .search-box {
+    padding: 6px 4px;
+  }
+  .search-box div {
+    margin-right: 30px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .main-bottom {
+    background-color: white;
+  }
+  .cards {
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 10px;
+    padding: 10px;
+  }
+  .main .greet {
+    margin: 2px 0;
+    color: #ff5546;
+  }
+  .main .card {
+    height: 100px;
+  }
+  .main .card img {
+    width: 25px; 
+  }
+  .main .card p {
+    font-size: 14px; 
+  }
+  .search-box input {
+    font-size: 16px; 
+    padding: 4px;
+  }
+}
+
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .main-user {
+    background-size: cover; 
+  }
+  .nav .menu {
+    display: none;
+  }
+  .search-box {
+    padding: 10px 15px;
+  }
+  .search-box img {
+    width: 24px;
+    height: 24px;
+  }
+  .cards {
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 15px;
+    padding: 15px;
+  }
+  .main .card {
+    height: 180px; 
+  }
+  .main .card img {
+    width: 30px; 
+  }
+  .main .card p {
+    font-size: 16px; 
+  }
+  .search-box input {
+    font-size: 18px; 
+    padding: 8px;
+  }
+}
+
+
+@media (min-width: 901px) {
+  .main-user {
+    background-size: cover; 
+  }
+  .nav .menu {
+    display: none;
+  }
+  .search-box {
+    padding: 12px 20px;
+  }
+  .search-box img {
+    width: 30px;
+    height: 30px;
+  }
+  .cards {
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px;
+    padding: 20px;
+  }
+  .main .card {
+    height: 200px; 
+  }
+  .main .card img {
+    width: 40px; 
+  }
+  .main .card p {
+    font-size: 18px; 
+  }
+  .search-box input {
+    font-size: 20px; /
+    padding: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .user-auth {
+    padding: 20px;
+    max-width: 90%; 
+  }
+
+  .user-auth h1 {
+    font-size: 24px; 
+  }
+
+  .user-auth input[type="text"],
+  .user-auth input[type="email"],
+  .user-auth input[type="password"] {
+    font-size: 14px; 
+    padding: 10px; 
+  }
+
+  button {
+    font-size: 16px; 
+    padding: 12px 20px; 
+  }
+
+  .error-message {
+    font-size: 12px; 
+  }
+}
+
+@media (max-width: 320px) {
+  .user-auth {
+    padding: 15px;
+    max-width: 95%;
+  }
+
+  .user-auth h1 {
+    font-size: 20px; 
+  }
+
+  .user-auth input[type="text"],
+  .user-auth input[type="email"],
+  .user-auth input[type="password"] {
+    font-size: 12px; 
+    padding: 8px;
+  }
+
+  button {
+    font-size: 14px; 
+    padding: 10px 15px; 
+  }
+
+  .error-message {
+    font-size: 10px; 
   }
 }

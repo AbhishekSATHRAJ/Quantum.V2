@@ -1,9 +1,10 @@
 .sidebar {
   min-height: 100vh;
+  z-index: 1000;
   display: inline-flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #f0f0f0;
+  background-color: #f0f4f9;
   padding: 25px 15px;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -43,7 +44,7 @@
 }
 
 .sidebar .recent-title {
-  margin-top: 13px;
+  margin-top: 30px;
   margin-bottom: 20px;
   font-weight: bold;
   color: #282828;
@@ -51,7 +52,7 @@
 
 .sidebar .recent-entry {
   display: flex;
-  align-items: center;
+  align-items: start;
   gap: 10px;
   padding: 10px;
   padding-right: 40px;
@@ -68,6 +69,7 @@
 .sidebar .bottom {
   display: flex;
   flex-direction: column;
+  gap: 3px;
 }
 
 .sidebar .bottom-item {
@@ -294,62 +296,6 @@ body.dark-mode .sidebar .settings button:hover {
   }
 }
 
-@media (max-width: 1024px) {
-  .sidebar {
-    padding: 20px 10px;
-  }
-
-  .sidebar img {
-    width: 16px;
-  }
-
-  .sidebar .new-chat {
-    font-size: 12px;
-    padding: 8px 12px;
-  }
-
-  .sidebar .recent-title {
-    font-size: 16px;
-  }
-
-  .sidebar .recent-entry {
-    font-size: 12px;
-    padding: 8px;
-  }
-
-  .sidebar .bottom-item {
-    font-size: 12px;
-    padding: 8px;
-  }
-
-  .sidebar .activity-log {
-    max-height: 250px;
-    padding: 8px;
-  }
-
-  .sidebar .activity-log-button {
-    font-size: 12px;
-    padding: 8px 12px;
-  }
-
-  .sidebar .settings h3 {
-    font-size: 16px;
-  }
-
-  .sidebar .settings label {
-    font-size: 12px;
-  }
-
-  .sidebar .settings input[type="checkbox"] {
-    width: 14px;
-    height: 14px;
-  }
-
-  .sidebar .settings button {
-    font-size: 12px;
-    padding: 8px 12px;
-  }
-}
 
 @media (max-width: 320px) {
   .sidebar {
@@ -360,7 +306,10 @@ body.dark-mode .sidebar .settings button:hover {
     width: 14px;
   }
 
-  .sidebar .new-chat {
+  .sidebar .new-chat,
+  .sidebar .recent-entry,
+  .sidebar .bottom-item,
+  .sidebar .activity-log-button {
     font-size: 10px;
     padding: 6px 10px;
   }
@@ -369,24 +318,9 @@ body.dark-mode .sidebar .settings button:hover {
     font-size: 14px;
   }
 
-  .sidebar .recent-entry {
-    font-size: 10px;
-    padding: 6px;
-  }
-
-  .sidebar .bottom-item {
-    font-size: 10px;
-    padding: 6px;
-  }
-
   .sidebar .activity-log {
     max-height: 200px;
     padding: 6px;
-  }
-
-  .sidebar .activity-log-button {
-    font-size: 10px;
-    padding: 6px 10px;
   }
 
   .sidebar .settings h3 {
@@ -405,5 +339,126 @@ body.dark-mode .sidebar .settings button:hover {
   .sidebar .settings button {
     font-size: 10px;
     padding: 6px 10px;
+  }
+}
+
+
+@media (min-width: 321px) and (max-width: 600px) {
+  .sidebar {
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    width: min(30vw, 140px);
+    height: 100%;
+    background-color: white;
+    color: black;
+    font-family: "Arial", sans-serif;
+    font-size: 14px;
+  }
+
+  .sidebar img {
+    width: 20px;
+  }
+
+  .sidebar .new-chat,
+  .sidebar .recent-entry,
+  .sidebar .bottom-item,
+  .sidebar .activity-log-button {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .sidebar .recent-title {
+    font-size: 16px;
+  }
+
+  .sidebar .settings h3 {
+    font-size: 16px;
+  }
+
+  .sidebar .settings label {
+    font-size: 12px;
+  }
+
+  .sidebar .settings button {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+}
+
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .sidebar {
+    padding: 25px 15px;
+  }
+
+  .sidebar img {
+    width: 24px;
+  }
+
+  .sidebar .new-chat,
+  .sidebar .recent-entry,
+  .sidebar .bottom-item,
+  .sidebar .activity-log-button {
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+
+  .sidebar .recent-title {
+    font-size: 18px;
+  }
+
+  .sidebar .settings h3 {
+    font-size: 18px;
+  }
+
+  .sidebar .settings label {
+    font-size: 14px;
+  }
+
+  .sidebar .settings button {
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+}
+
+
+@media (min-width: 901px) {
+  .sidebar {
+    padding: 30px 20px;
+    display: flex !important;
+    position: relative;
+    font-family: "Arial", sans-serif;
+    color: #282828;
+  }
+
+  .sidebar img {
+    width: 30px;
+  }
+
+  .sidebar .new-chat,
+  .sidebar .recent-entry,
+  .sidebar .bottom-item,
+  .sidebar .activity-log-button {
+    font-size: 16px;
+    padding: 12px 15px;
+  }
+
+  .sidebar .recent-title {
+    font-size: 20px;
+  }
+
+  .sidebar .settings h3 {
+    font-size: 20px;
+  }
+
+  .sidebar .settings label {
+    font-size: 16px;
+  }
+
+  .sidebar .settings button {
+    font-size: 16px;
+    padding: 12px 15px;
   }
 }

@@ -16,8 +16,10 @@ import gemini_icon from "./gemini_icon.png";
 import mic_recording_icon from "./mic_recording_icon.png";
 import science from "./science.png";
 import user from "./user.png";
+import close from "./lock.png";
 
 export const assets = {
+  close,
   user,
   science,
   mic_recording_icon,
