@@ -14,7 +14,7 @@ import { Context } from "../../context/Context";
 import "./Main.css";
 import { assets } from "../../assets/assets";
 
-const MainUser = ({ isSidebarVisible, toggleSidebar }) => {
+const MainUser = ({ isSidebarVisible, toggleSidebar, menuIcon }) => {
   const {
     onSent,
     recentPrompt,
@@ -271,10 +271,10 @@ const MainUser = ({ isSidebarVisible, toggleSidebar }) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <button onClick={register} disabled={loading}>
+              <button  onClick={register} disabled={loading}>
                 Register
               </button>
-              <button onClick={login} disabled={loading}>
+              <button className="Signin" onClick={login} disabled={loading}>
                 Sign In
               </button>
             </div>
@@ -294,18 +294,20 @@ const MainUser = ({ isSidebarVisible, toggleSidebar }) => {
               </button>
             </div>
           )}
-          <button onClick={toggleUserAuth}>Back to Main</button>
+          <button className="BacktoMain" onClick={toggleUserAuth}>Back to Main</button>
         </div>
       ) : (
         <div className="main">
           <div className="nav">
-            <img
+             <img
               onClick={toggleSidebar}
               className="menu"
               title="Menu"
-              src={assets.menu_icon}
+              src={menuIcon}
               alt="Menu_Icon"
             />
+          
+            
             <p>Quantum.V2</p>
             <img
               src={user ? userIcon || assets.user_icon : assets.user}

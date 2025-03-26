@@ -30,6 +30,10 @@
   padding: 20px;
   color: #585858;
 }
+.nav .menu{
+  position: absolute;
+  z-index: 10;
+}
 
 .main .nav label {
   font-size: 16px;
@@ -294,6 +298,9 @@ button {
   margin-top: 20px;
   transition: background-color 0.3s ease, transform 0.3s ease-in-out;
 }
+.Signin{
+  margin-left: 100px;
+}
 
 button:hover {
   background-color: #3871cc;
@@ -390,6 +397,9 @@ button:disabled {
     z-index: 1;
     background-color: white;
   }
+  .nav p{
+    margin-left: 110px;
+  }
   .main-user {
     background-size: cover; 
   }
@@ -401,6 +411,12 @@ button:disabled {
     display: flex;
     align-items: center;
     gap: 5px;
+  }
+  .Signin{
+    margin-left: 125px;
+  }
+  .BacktoMain{
+     margin-left: 12px;
   }
   .main-bottom {
     background-color: white;
@@ -437,6 +453,7 @@ button:disabled {
   .nav .menu {
     display: none;
   }
+  
   .search-box {
     padding: 10px 15px;
   }
@@ -471,7 +488,9 @@ button:disabled {
   }
   .nav .menu {
     display: none;
+
   }
+ 
   .search-box {
     padding: 12px 20px;
   }

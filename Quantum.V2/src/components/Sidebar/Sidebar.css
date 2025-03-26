@@ -1,6 +1,6 @@
 .sidebar {
   min-height: 100vh;
-  z-index: 1000;
+  z-index: 1;
   display: inline-flex;
   flex-direction: column;
   justify-content: space-between;
@@ -385,6 +385,12 @@ body.dark-mode .sidebar .settings button:hover {
     font-size: 12px;
     padding: 8px 12px;
   }
+   .sidebar .top .menu{
+    margin-top: 60px;
+    margin-left: 2px;
+    width: 6vw;
+    height: 4vh;
+   }
 }
 
 

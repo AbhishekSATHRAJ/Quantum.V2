@@ -17,8 +17,12 @@ import mic_recording_icon from "./mic_recording_icon.png";
 import science from "./science.png";
 import user from "./user.png";
 import close from "./lock.png";
+import home from "./home-page.png";
+import lock from "./lock.png";
 
 export const assets = {
+  lock,
+  home,
   close,
   user,
   science,
