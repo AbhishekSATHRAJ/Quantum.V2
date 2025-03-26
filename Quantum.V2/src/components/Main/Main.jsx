@@ -25,6 +25,7 @@ const MainUser = ({ isSidebarVisible, toggleSidebar, menuIcon }) => {
     input,
   } = useContext(Context);
 
+  const [isRegistered, setIsRegistered] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -159,6 +160,7 @@ const MainUser = ({ isSidebarVisible, toggleSidebar, menuIcon }) => {
       setEmail("");
       setPassword("");
       setUsername("");
+      setIsRegistered(true);
     } catch (err) {
       setError(err.message || "Registration failed.");
     } finally {
@@ -194,7 +196,7 @@ const MainUser = ({ isSidebarVisible, toggleSidebar, menuIcon }) => {
       } else {
         setUser({
           email: loggedInUser.email,
-          displayName: username,
+          displayName: loggedInUser.displayName || "User",
           photoURL: loggedInUser.photoURL,
         });
         setUserIcon(loggedInUser.photoURL || assets.user_icon);
@@ -253,12 +255,12 @@ const MainUser = ({ isSidebarVisible, toggleSidebar, menuIcon }) => {
 
           {!user ? (
             <div className="user">
-              <input
+             {!isRegistered &&( <input
                 type="text"
                 placeholder="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-              />
+              />)}
               <input
                 type="email"
                 placeholder="Email"
@@ -325,7 +327,7 @@ const MainUser = ({ isSidebarVisible, toggleSidebar, menuIcon }) => {
                 <div className="greet">
                   <p>
                     <span>
-                      Hello, {user ? user.displayName || user.email : "Guest"}.
+                      Hello, {user ? user.displayName || "NewUser"  : "Guest"}.
                     </span>
                   </p>
                   <p>How can I help today?</p>
