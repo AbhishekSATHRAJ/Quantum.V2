@@ -36,7 +36,7 @@ const App = () => {
         clickTimer = null;
         setIsSidebarVisible((prev) => !prev);
         setMenuIcon((prevIcon) =>
-          prevIcon === home ? lock : home
+          (prevIcon === home ? lock : home)
         );
       }, 300);
        

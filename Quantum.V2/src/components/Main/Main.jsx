@@ -25,7 +25,7 @@ const MainUser = ({ isSidebarVisible, toggleSidebar, menuIcon }) => {
     input,
   } = useContext(Context);
 
-  const [isRegistered, setIsRegistered] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -77,17 +77,29 @@ const MainUser = ({ isSidebarVisible, toggleSidebar, menuIcon }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
+      if (currentUser ) {
+        if(currentUser.emailVerified){
         setUser({
           email: currentUser.email,
           displayName: currentUser.displayName,
           photoURL: currentUser.photoURL,
         });
         setUserIcon(currentUser.photoURL || assets.user_icon);
+     
+
+          setIsRegistered(true);
+          toast.success("Email verified! You can now sign in.");
+        }else{
+          setUser(null);
+          setIsRegistered(false);
+          toast.warn("Please verify your email before signing in.");
+        }
+
         logActivity("User Signed in");
         toast.success("User signed in successfully!");
       } else {
         setUser(null);
+        setIsRegistered(false);
         setUserIcon(assets.user_icon);
       }
     });
@@ -160,7 +172,7 @@ const MainUser = ({ isSidebarVisible, toggleSidebar, menuIcon }) => {
       setEmail("");
       setPassword("");
       setUsername("");
-      setIsRegistered(true);
+      setIsRegistered(false);
     } catch (err) {
       setError(err.message || "Registration failed.");
     } finally {
@@ -190,9 +202,10 @@ const MainUser = ({ isSidebarVisible, toggleSidebar, menuIcon }) => {
 
       if (!loggedInUser.emailVerified) {
         await signOut(auth);
-        toast.error("Please verify your email before logging in.");
         setUser(null);
         setUserIcon(assets.user_icon);
+        toast.error("Please verify your email before logging in.");
+        return
       } else {
         setUser({
           email: loggedInUser.email,
@@ -200,6 +213,7 @@ const MainUser = ({ isSidebarVisible, toggleSidebar, menuIcon }) => {
           photoURL: loggedInUser.photoURL,
         });
         setUserIcon(loggedInUser.photoURL || assets.user_icon);
+        setIsRegistered(true);
         toast.success("Login successful!");
         setShowUserAuth(false);
       }
@@ -242,11 +256,19 @@ const MainUser = ({ isSidebarVisible, toggleSidebar, menuIcon }) => {
   const toggleUserAuth = () => {
     setShowUserAuth(!showUserAuth);
     setError("");
+    if (window.innerWidth <= 600 && isSidebarVisible) {
+      toggleSidebar(false);
+    }
   };
 
   return (
     <div className="main-user">
-      <ToastContainer position="top-right" autoClose={3000} />
+      <ToastContainer
+        position="top-right"
+        autoClose={680}
+        pauseOnFocusLoss={false}
+        pauseOnHover
+      />
       {showUserAuth ? (
         <div className="user-auth">
           <h1>User Authentication</h1>
@@ -255,30 +277,38 @@ const MainUser = ({ isSidebarVisible, toggleSidebar, menuIcon }) => {
 
           {!user ? (
             <div className="user">
-             {!isRegistered &&( <input
-                type="text"
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />)}
-              <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value.trim())}
-              />
-              <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <button  onClick={register} disabled={loading}>
-                Register
-              </button>
-              <button className="Signin" onClick={login} disabled={loading}>
-                Sign In
-              </button>
+              {!isRegistered &&(
+                  <input
+                    type="text"
+                    placeholder="Username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+              )
+              }
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value.trim())}
+                  />
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <button onClick={register} disabled={loading}>
+                    Register
+                  </button>
+                
+             
+
+                  <button className="Signin" onClick={login} disabled={loading}>
+                    Sign In
+                  </button>
+               
+           
             </div>
           ) : (
             <div className="welcome">
@@ -296,20 +326,21 @@ const MainUser = ({ isSidebarVisible, toggleSidebar, menuIcon }) => {
               </button>
             </div>
           )}
-          <button className="BacktoMain" onClick={toggleUserAuth}>Back to Main</button>
+          <button className="BacktoMain" onClick={toggleUserAuth}>
+            Back to Main
+          </button>
         </div>
       ) : (
         <div className="main">
           <div className="nav">
-             <img
+            <img
               onClick={toggleSidebar}
               className="menu"
               title="Menu"
               src={menuIcon}
               alt="Menu_Icon"
             />
-          
-            
+
             <p>Quantum.V2</p>
             <img
               src={user ? userIcon || assets.user_icon : assets.user}
@@ -327,7 +358,7 @@ const MainUser = ({ isSidebarVisible, toggleSidebar, menuIcon }) => {
                 <div className="greet">
                   <p>
                     <span>
-                      Hello, {user ? user.displayName || "NewUser"  : "Guest"}.
+                      Hello, {user ? user.displayName || "NewUser" : "Guest"}.
                     </span>
                   </p>
                   <p>How can I help today?</p>
